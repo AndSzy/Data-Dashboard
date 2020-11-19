@@ -3,6 +3,17 @@ import { Bar } from 'vue-chartjs'
 export default {
   extends: Bar,
   props: ['dataset','color'],
+  watch: {
+    color() {
+        this.data.datasets[0].backgroundColor = this.color;
+        this.$data._chart.update();
+        // this.renderChart(this.data, this.options);
+    },
+    dataset() {
+        this.data.datasets[0].data = this.dataset;
+        this.$data._chart.update();
+    }
+  },
   data() {
       return {
         data: {
@@ -28,6 +39,11 @@ export default {
                     ticks: {
                         source: 'auto',
                         autoSkip: true
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        max: 30
                     }
                 }]
             }

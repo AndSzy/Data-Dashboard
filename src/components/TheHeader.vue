@@ -13,6 +13,7 @@
                 <select name="chartColor" id="chartColor" v-model="chartColor">
                     <option value="red">Red</option>
                     <option value="blue">Blue</option>
+                    <option value="green">Green</option>
                 </select>
             </div>
             <div class="form-control">

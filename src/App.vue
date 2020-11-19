@@ -1,53 +1,34 @@
 <template>
   <div id="app">
-    <the-header @submitForm="newChart"></the-header>
+    <the-header @submitForm="newComponent"></the-header>
     <div class="main-container">
-      <new-window
+      <my-component
+        @editChart="updateCharts"
         v-for="chart in charts"
         :key="chart.id"
+        :id="chart.id"
         :color="chart.color"
         :chartType="chart.chartType"
+        :datasetName="chart.datasetName"
         :dataset="chart.dataset"
-      ></new-window>
+      ></my-component>
     </div>
   </div>
 </template>
 
 <script>
 import TheHeader from "./components/TheHeader.vue";
-import NewWindow from "./components/NewWindow.vue";
+import MyComponent from "./components/MyComponent.vue";
 
 export default {
   name: "App",
   components: {
     TheHeader,
-    NewWindow,
+    MyComponent,
   },
   data() {
     return {
-      charts: [
-        {
-          id: 0,
-          color: "#f33939",
-          chartType: "Line",
-          dataset: [
-            { x: new Date(2018, 11, 24), y: 7 },
-            { x: new Date(2019, 11, 24), y: 3 },
-            { x: new Date(2020, 11, 24), y: 6 },
-          ],
-        },
-
-        {
-          id: 1,
-          color: "green",
-          chartType: "Bar",
-          dataset: [
-            { x: new Date(2018, 11, 24), y: 1 },
-            { x: new Date(2019, 11, 24), y: 5 },
-            { x: new Date(2020, 11, 24), y: 4 },
-          ],
-        },
-      ],
+      charts: [],
       dataset1: [
         {
           x: new Date(2018, 11, 24),
@@ -79,19 +60,33 @@ export default {
     };
   },
   methods: {
-    newChart(newChartType, newChartColor, newChartData) {
+    newComponent(newChartType, newChartColor, newChartData) {
       let newChartObject = {};
       newChartObject.id = new Date().toISOString();
       newChartObject.color = newChartColor;
       newChartObject.chartType = newChartType;
-      if (newChartData === 'data1') {
+      newChartObject.datasetName = newChartData;
+      if (newChartData === "data1") {
         newChartObject.dataset = this.dataset1;
-      } else if (newChartData === 'data2') {
+      } else if (newChartData === "data2") {
         newChartObject.dataset = this.dataset2;
       }
-      
+
       this.charts.push(newChartObject);
-    }
+    },
+    updateCharts(id, chartType, color, dataName) {
+      this.charts.forEach((chart) => {
+        if (chart.id === id) {
+          chart.chartType = chartType;
+          chart.color = color;
+          if (dataName === "data1") {
+            chart.dataset = this.dataset1;
+          } else if (dataName === "data2") {
+            chart.dataset = this.dataset2;
+          }
+        }
+      });
+    },
   },
 };
 </script>
