@@ -1,7 +1,10 @@
 <template>
-    <div class="new-window-container">
-        <h1>My Component</h1>
-        <form>
+  <div class="new-window-container">
+    <div>
+      <h1>My Component</h1>
+      <button class="btn btn-primary m-2 float-right" @click="openModal">Open Modal</button>
+    </div>
+    <!-- <form>
             <div class="form-control">
                 <label for="chartType">Choose chart type.</label>
                 <select name="chartType" id="chartType" v-model="selectedChartType">
@@ -24,55 +27,74 @@
                     <option value="data2">Data 2</option>
                 </select>
             </div>
-        </form>
-        <line-chart v-if="selectedChartType === 'Line'" :color="color" :dataset="dataset" ></line-chart>
-        <bar-chart v-else-if="selectedChartType === 'Bar'" :color="color" :dataset="dataset" ></bar-chart>
-    </div>
+        </form> -->
+    <line-chart
+      v-if="chartType === 'Line'"
+      :color="color"
+      :dataset="dataset"
+    ></line-chart>
+    <bar-chart
+      v-else-if="chartType === 'Bar'"
+      :color="color"
+      :dataset="dataset"
+    ></bar-chart>
+  </div>
 </template>
 
 <script>
-import LineChart from './LineChart.js';
-import BarChart from './BarChart.js';
-
+import LineChart from "./LineChart.js";
+import BarChart from "./BarChart.js";
 
 export default {
-    components: {
-        LineChart,
-        BarChart
-    },
-    props: ['id', 'chartType', 'color', 'datasetName', 'dataset'],
-    data() {
-        return {
-            selectedChartType: this.chartType,
-            selectedColor: this.color,
-            selectedDatasetName: this.datasetName,
-            
-        }
-    },
-    watch: {
-        selectedChartType() {
-            this.$emit('editChart', this.id, this.selectedChartType, this.selectedColor, this.selectedDatasetName);
-        },
-        selectedColor() {
-            this.$emit('editChart', this.id, this.selectedChartType, this.selectedColor, this.selectedDatasetName);
-        },
-        selectedDatasetName() {
-            this.$emit('editChart', this.id, this.selectedChartType, this.selectedColor, this.selectedDatasetName);
-        }
-    },
-}
+  components: {
+    LineChart,
+    BarChart,
+  },
+  props: ["id", "chartType", "color", "datasetName", "dataset"],
+  methods: {
+    openModal() {
+      this.$emit("openModal", this.id, this.chartType, this.color, this.datasetName);
+    }
+  },
+//   data() {
+//     return {
+//       selectedChartType: this.chartType,
+//       selectedColor: this.color,
+//       selectedDatasetName: this.datasetName,
+//     }
+//   },
+//   watch: {
+//     selectedChartType() {
+//         console.log("type changed");
+//       this.$emit(
+//         "editChart",
+//         this.id,
+//         this.selectedChartType,
+//         this.selectedColor,
+//         this.selectedDatasetName
+//       );
+//     },
+//     selectedColor() {
+//       this.$emit(
+//         "editChart",
+//         this.id,
+//         this.selectedChartType,
+//         this.selectedColor,
+//         this.selectedDatasetName
+//       );
+//     },
+//     selectedDatasetName() {
+//       this.$emit(
+//         "editChart",
+//         this.id,
+//         this.selectedChartType,
+//         this.selectedColor,
+//         this.selectedDatasetName
+//       );
+//     },
+//   },
+};
 </script>
 
 <style scoped>
-.new-window-container {
-    padding: 20px;
-    margin: 10px;
-    border: 1px solid #000;
-    border-radius: 4px;
-    background-color: #fff;
-}
-.chart-container {
-    width: 400px;
-    height: 400px;
-}
 </style>

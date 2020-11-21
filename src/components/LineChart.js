@@ -5,6 +5,7 @@ export default {
   props: ['dataset','color'],
   watch: {
     color() {
+        console.log("color in line chart changed");
         this.data.datasets[0].backgroundColor = this.color;
         this.$data._chart.update();
         // this.renderChart(this.data, this.options);
