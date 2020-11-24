@@ -1,36 +1,23 @@
 <template>
   <div id="app">
     <the-header @submitForm="newComponent"></the-header>
-    <chart-modal 
-      :activeChartId="activeChartId"
-      :activeChartType="activeChartType"
-      :activeChartColor="this.activeChartColor"
-      :activeChartDataset="activeChartDataset"
-      @editChart="updateCharts"
-    ></chart-modal>
     <div class="container-fluid">
       <div class="row">
         <my-component
         class="col-4 bg-white"
-        @openModal="openModal"
-        @editChart="updateCharts"
         v-for="chart in charts"
         :key="chart.id"
-        :id="chart.id"
-        :color="chart.color"
-        :chartType="chart.chartType"
-        :datasetName="chart.datasetName"
-        :dataset="chart.dataset"
+        :chart="chart"
       ></my-component>
       </div>
     </div>
+        <router-view @chart-changed="updateCharts"></router-view>
   </div>
 </template>
 
 <script>
 import TheHeader from "./components/TheHeader.vue";
 import MyComponent from "./components/MyComponent.vue";
-import ChartModal from "./components/ChartModal.vue";
 
 
 export default {
@@ -38,15 +25,16 @@ export default {
   components: {
     TheHeader,
     MyComponent,
-    ChartModal
+  },
+  watch: {
+    $route() {
+      this.showModal = true;
+    }
   },
   data() {
     return {
       charts: [],
-      activeChartId: '',
-      activeChartType: '',
-      activeChartColor: '',
-      activeChartDataset: '',
+      showModal: false,
       dataset1: [
         {
           x: new Date(2018, 11, 24),
@@ -105,13 +93,7 @@ export default {
         }
       });
     },
-    openModal(id, type, color, dataset) {
-      this.activeChartId = id;
-      this.activeChartType = type;
-      this.activeChartColor = color;
-      this.activeChartDataset = dataset;
-      this.$bvModal.show('modal-2');
-    }
+  
   },
 };
 </script>
