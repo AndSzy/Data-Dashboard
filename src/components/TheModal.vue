@@ -12,14 +12,14 @@
         <form >
             <div class="form-group ">
                 <label for="chartType">Choose chart type</label>
-                <select class="form-control-sm mx-2" name="chartType" id="chartType" v-model="chartType">
+                <select class="form-control-sm mx-2" name="chartType" id="chartType" v-model="currentChart.chartType">
                     <option value="Line">Line</option>
                     <option value="Bar">Bar</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="chartColor">Choose chart color</label>
-                <select class="form-control-sm mx-2" name="chartColor" id="chartColor" v-model="chartColor">
+                <select class="form-control-sm mx-2" name="chartColor" id="chartColor" v-model="currentChart.color">
                     <option value="red">Red</option>
                     <option value="blue">Blue</option>
                     <option value="green">Green</option>
@@ -27,7 +27,7 @@
             </div>
             <div class="form-group">
                 <label for="chartData">Choose chart dataset</label>
-                <select class="form-control-sm mx-2" name="chartData" id="chartData" v-model="chartData">
+                <select class="form-control-sm mx-2" name="chartData" id="chartData" v-model="currentChart.datasetName">
                     <option value="data1">Data 1</option>
                     <option value="data2">Data 2</option>
                 </select>
@@ -48,21 +48,15 @@ export default {
     props: ['chart'],
     data() {
         return {
-            chartType: this.chart.chartType,
-            chartColor: this.chart.color,
-            chartData: this.chart.datasetName,
+            currentChart : this.chart,
         }
     },
     watch: {
-        chartType() {
-          this.$emit('chart-changed', this.chart.id, this.chartType, this.chartColor, this.chartData);
-        },
-        chartColor() {
-          this.$emit('chart-changed', this.chart.id, this.chartType, this.chartColor, this.chartData);
-        },
-        chartData() {
-          this.$emit('chart-changed', this.chart.id, this.chartType, this.chartColor, this.chartData);
-        }
+      currentChart: {
+        handler(){
+            this.$emit('chart-changed', this.currentChart)
+        }, deep: true
+      },
     }
 }
 </script>
