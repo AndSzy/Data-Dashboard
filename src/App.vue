@@ -2,15 +2,17 @@
   <div id="app">
     <the-header @submitForm="newComponent"></the-header>
     <div class="container-fluid">
-      <!-- add v-for="" to row class -->
-      <div class="row" >
-        <my-component
-        class="col-4 bg-white"
-        v-for="chart in charts"
-        :key="chart.id"
-        :chart="chart"
-        :openModalAction="openComponentModal"
-      ></my-component>
+      
+      <div class="row" v-for="index in Math.ceil(charts.length / 3)" :key="index">
+        
+          <my-component
+          class="col-4"
+          v-for="chart in charts.slice((index - 1) * 3, index * 3)"
+          :key="chart.id"
+          :chart="chart"
+          :openModalAction="openComponentModal"
+        ></my-component>
+
       </div>
     </div>
         <router-view
@@ -78,7 +80,6 @@ export default {
         }
       });
     },
-  
   },
 };
 </script>

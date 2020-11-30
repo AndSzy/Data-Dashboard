@@ -1,5 +1,4 @@
 <template>
-  <!-- Debounce or throttle dragover event listener -->
   <div 
   class="new-window-container"
   :class="{ transparent: isTransparent, over: isOver }"
@@ -8,7 +7,7 @@
   @dragenter="handleDragEnter" 
   @dragleave="handleDragLeave"
   @dragover.prevent="handleDragOver"  
-  @drop.prevent="handleDrop"
+  @drop.prevent="handleDrop" 
   draggable=true>
     <div>
       <h1>My Component</h1>
@@ -57,11 +56,11 @@ export default {
     openModal() {
       this.openModalAction(this.chart);
     },
-    handleDragStart(e) {
+   handleDragStart(e) {
       this.isTransparent = true;
       e.dataTransfer.dropEffect = "move";
       e.dataTransfer.setData("text/plain", e.target);
-      // console.log(e.target);
+      console.log(e.target);
 
     },
     handleDragEnd() {
@@ -91,7 +90,6 @@ export default {
 </script>
 
 <style scoped>
-
 .new-window-container {
   cursor: move;
 }
@@ -103,5 +101,4 @@ export default {
 .over {
   border: 3px dotted #666;
 }
-
 </style>
