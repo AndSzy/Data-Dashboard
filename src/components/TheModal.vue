@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="close" @click="$router.push('/')" >
+        <button type="button" class="close" @click="closeModal" >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -35,7 +35,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" @click="$router.push('/')" >Close</button>
+        <button type="button" class="btn btn-secondary" @click="closeModal" >Close</button>
       </div>
     </div>
   </div>
@@ -44,8 +44,11 @@
 
 <script>
 export default {
-  emits: ['chart-changed'],
-    props: ['chart'],
+    props: {
+      chart: Object,
+      closeModalAction: Function,
+      updateChartAction: Function
+    }, 
     data() {
         return {
             currentChart : this.chart,
@@ -54,9 +57,14 @@ export default {
     watch: {
       currentChart: {
         handler(){
-            this.$emit('chart-changed', this.currentChart)
+            this.updateChartAction(this.currentChart);
         }, deep: true
       },
+    },
+    methods: {
+      closeModal() {
+        this.closeModalAction();
+      }
     }
 }
 </script>

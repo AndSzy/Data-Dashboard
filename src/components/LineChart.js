@@ -2,7 +2,10 @@ import { Line } from 'vue-chartjs'
  
 export default {
   extends: Line,
-  props: ['dataset','color'],
+  props: {
+      dataset: Array,
+      color: String
+  },
   watch: {
     color() {
         this.data.datasets[0].backgroundColor = this.color;

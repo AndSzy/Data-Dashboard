@@ -2,16 +2,21 @@
   <div id="app">
     <the-header @submitForm="newComponent"></the-header>
     <div class="container-fluid">
-      <div class="row">
+      <!-- add v-for="" to row class -->
+      <div class="row" >
         <my-component
         class="col-4 bg-white"
         v-for="chart in charts"
         :key="chart.id"
         :chart="chart"
+        :openModalAction="openComponentModal"
       ></my-component>
       </div>
     </div>
-        <router-view @chart-changed="updateCharts"></router-view>
+        <router-view
+        :closeModalAction="closeComponentModal"
+        :updateChartAction="updateCharts" 
+        ></router-view>
   </div>
 </template>
 
@@ -36,6 +41,16 @@ export default {
     };
   },
   methods: {
+    openComponentModal(editedChart) {
+      this.$router.push({
+        name: 'TheModal',
+        params: {
+          chart: editedChart
+        }})
+    },
+    closeComponentModal() {
+      this.$router.push('/');
+    },
     newComponent(newChart) {
       let newChartObject = {};
       newChartObject.id = new Date().toISOString();
