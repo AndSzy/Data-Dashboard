@@ -8,21 +8,26 @@
         :key="index"
       >
         <my-component
+          mydraggable
           :id="chart.id"
-          class="draggable col-4"
+          class="col-4"
           
           v-for="chart in charts.slice((index - 1) * 3, index * 3)"
           :key="chart.id"
           :chart="chart"
           :openModalAction="openComponentModal"
 
-          draggable="true"
+         
+        ></my-component>
+
+         <!-- draggable="true"
           @dragstart.native="handleDragStart"
           @dragend.native="handleDragEnd"
           
           @dragover.native.prevent
-          @drop.native.prevent="handleDrop"
-        ></my-component>
+          @drop.native.prevent="handleDrop" -->
+
+
       </div>
     </div>
     <router-view
@@ -38,6 +43,10 @@ import MyComponent from "./components/MyComponent.vue";
 
 import { dataset1, dataset2 } from "./components/FakeData.js";
 
+// handle the registration
+
+import { logSmth } from './components/DragControler.js';
+
 export default {
   name: "App",
   components: {
@@ -51,6 +60,14 @@ export default {
       charts: [],
     };
   },
+  mounted() {
+    console.log("mounted");
+  },
+  updated() {
+    console.log("updated");
+    logSmth()
+  },
+
   methods: {
 
 
@@ -73,7 +90,7 @@ export default {
     handleDrop(e) {
       const selectedId = e.dataTransfer.getData("selectedId");
       const targetId = e.currentTarget.id;
-      console.log(selectedId, targetId);
+      // console.log(selectedId, targetId);
       if(selectedId !== targetId) {
         this.swapCharts(selectedId, targetId)
       }

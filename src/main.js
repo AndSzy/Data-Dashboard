@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import TheModal from "./components/TheModal.vue";
 
+import DragControler from './components/DragControler.js';
+
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -19,6 +21,8 @@ const router = new VueRouter({
 
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
+
+Vue.component('DragControler', DragControler);
 
 Vue.config.productionTip = false
 
