@@ -11,22 +11,11 @@
           mydraggable
           :id="chart.id"
           class="col-4"
-          
           v-for="chart in charts.slice((index - 1) * 3, index * 3)"
           :key="chart.id"
           :chart="chart"
           :openModalAction="openComponentModal"
-
-         
         ></my-component>
-
-         <!-- draggable="true"
-          @dragstart.native="handleDragStart"
-          @dragend.native="handleDragEnd"
-          
-          @dragover.native.prevent
-          @drop.native.prevent="handleDrop" -->
-
 
       </div>
     </div>
@@ -61,51 +50,18 @@ export default {
     };
   },
   mounted() {
-    console.log("mounted");
+    // console.log("mounted");
+  },
+  beforeUpdate() {
+    // console.log("before Update Hook");
+    // removeEventListeners();
   },
   updated() {
-    console.log("updated");
-    logSmth()
+    // console.log("updated");
+    logSmth();
   },
 
   methods: {
-
-
-    handleDragStart(e) {
-      e.target.classList.add('transparent');
-      event.dataTransfer.setData("selectedId", event.target.id);
-      // this.isTransparent = true;
-      // e.dataTransfer.dropEffect = "move";
-      // e.dataTransfer.setData("text/plain", e.target);
-      // console.log(e.target.id);
-
-    },
-    handleDragEnd(e) {
-      e.target.classList.remove('transparent')
-      // this.isTransparent = false;
-    
-    },
-    
-    
-    handleDrop(e) {
-      const selectedId = e.dataTransfer.getData("selectedId");
-      const targetId = e.currentTarget.id;
-      // console.log(selectedId, targetId);
-      if(selectedId !== targetId) {
-        this.swapCharts(selectedId, targetId)
-      }
-    },
-    swapCharts(selectedId, targetId){
-      let targetChartIndex = this.charts.findIndex((chart) => chart.id === targetId);
-      let selectedChartIndex = this.charts.findIndex((chart) => chart.id === selectedId);
-      let selectedChart = this.charts[selectedChartIndex];
-      this.charts.splice(selectedChartIndex,1);
-      this.charts.splice(targetChartIndex,0,selectedChart);
-    },
-
-
-
-
     openComponentModal(editedChart) {
       this.$router.push({
         name: "TheModal",

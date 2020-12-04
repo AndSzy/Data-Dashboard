@@ -1,8 +1,16 @@
 function logSmth() {
-    let la = document.querySelectorAll('[mydraggable]');
-    la.forEach((element) => {
-        element.addEventListener('click', () => console.log("szyszka"));
+    let elements = document.querySelectorAll('[mydraggable]');
+    elements.forEach((element) => {
+        if(!element.classList.contains('click-handler')) {
+            element.classList.add('click-handler');
+            element.addEventListener('click', (e)=> {
+                console.log("clicked********" + e.currentTarget.id);
+            })
+        }
     })
 }
+
+
+
 
 export { logSmth };
