@@ -2,20 +2,22 @@
   <div id="app">
     <the-header @submitForm="newComponent"></the-header>
     <div class="container-fluid">
-      <div
-        class="row"
-        v-for="index in Math.ceil(charts.length / 3)"
-        :key="index"
-      >
-        <my-component
+
+      <!-- v-for="index in Math.ceil(charts.length / 3)"
+        :key="index" -->
+
+      <div class="row">
+        <draggable v-model="charts" class="col-4">
+          <my-component
           mydraggable
-          :id="chart.id"
-          class="col-4"
-          v-for="chart in charts.slice((index - 1) * 3, index * 3)"
+          
+          v-for="chart in charts"
           :key="chart.id"
           :chart="chart"
           :openModalAction="openComponentModal"
         ></my-component>
+        </draggable>
+        
 
       </div>
     </div>
@@ -32,6 +34,8 @@ import MyComponent from "./components/MyComponent.vue";
 
 import { dataset1, dataset2 } from "./components/FakeData.js";
 
+import draggable from 'vuedraggable';
+
 // handle the registration
 
 import { logSmth } from './components/DragControler.js';
@@ -41,6 +45,7 @@ export default {
   components: {
     TheHeader,
     MyComponent,
+    draggable
   },
   data() {
     return {
