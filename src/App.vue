@@ -1,16 +1,15 @@
 <template>
   <div id="app">
     <the-header @submitForm="newComponent"></the-header>
+    <the-sidebar></the-sidebar>
     <div class="container-fluid">
-
-      <!-- v-for="index in Math.ceil(charts.length / 3)"
-        :key="index" -->
-
-      <div class="row">
-        <draggable v-model="charts" class="col-4">
+    
+        <draggable v-model="charts" class="row"  >
           <my-component
+          
           mydraggable
           
+          class="col-12 col-sm-6 col-lg-4"
           v-for="chart in charts"
           :key="chart.id"
           :chart="chart"
@@ -18,8 +17,6 @@
         ></my-component>
         </draggable>
         
-
-      </div>
     </div>
     <router-view
       :closeModalAction="closeComponentModal"
@@ -31,6 +28,7 @@
 <script>
 import TheHeader from "./components/TheHeader.vue";
 import MyComponent from "./components/MyComponent.vue";
+import TheSidebar from './components/TheSidebar.vue';
 
 import { dataset1, dataset2 } from "./components/FakeData.js";
 
@@ -45,6 +43,7 @@ export default {
   components: {
     TheHeader,
     MyComponent,
+    TheSidebar,
     draggable
   },
   data() {
