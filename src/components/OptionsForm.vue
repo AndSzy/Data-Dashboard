@@ -22,7 +22,7 @@
                     <option value="data2">Data 2</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-light mx-5">New Chart</button>
+            <button type="submit" class="btn btn-primary">New Chart</button>
         </form>
 </template>
 

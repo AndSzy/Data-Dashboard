@@ -13,10 +13,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars, faCog, faBell } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCog, faBell, faChartArea, faUser, faTable, faBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faBars, faCog, faBell);
+library.add(faBars, faCog, faBell, faChartArea, faUser, faTable, faBook);
 
 Vue.use(VueRouter)
 

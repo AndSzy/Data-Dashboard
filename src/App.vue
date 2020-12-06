@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <the-header @submitForm="newComponent">
+    <the-header>
       <!-- Dont know how to make toggle dynamiclly -->
         <a class="btn btn-primary" v-b-toggle="'LeftSidebar'"  > 
           <font-awesome-icon icon="bars" /> 
@@ -19,6 +19,7 @@
           :key="chart.id"
           :chart="chart"
           :openModalAction="openComponentModal"
+          :closeComponentAction="closeMyComponent"
         ></my-component>
         </draggable>
         
@@ -109,6 +110,14 @@ export default {
           }
         }
       });
+    },
+    closeMyComponent(closingChart) {
+      this.charts.forEach((chart) => {
+        if (chart.id === closingChart.id) {
+          const index = this.charts.indexOf(chart);
+          this.charts.splice(index,1);
+        }
+      })
     },
   },
 };
