@@ -72,12 +72,21 @@ export default {
 <style scoped>
 
 .modal-overlay {
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
     background-color: rgba(229,229,229, 0.5);
+}
+
+
+.modal-dialog {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 400px;
 }
 
 

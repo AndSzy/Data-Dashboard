@@ -1,16 +1,5 @@
 <template>
-  <nav class="navbar navbar-dark bg-primary sticky-top">
-    <slot></slot>
-    <div class="ml-auto">
-      <a class="btn btn-primary">
-        <font-awesome-icon icon="bell" style="color: #fff" />
-      </a>
-      <a class="btn btn-primary">
-        <font-awesome-icon icon="cog" style="color: #fff" />
-      </a>
-    </div>
-
-    <!-- <form class="form-inline" @submit.prevent="submitForm">
+    <form class="form-inline" @submit.prevent="submitForm">
             <div class="form-group mx-3">
                 <label for="chartType">Choose chart type</label>
                 <select class="form-control-sm mx-2" name="chartType" id="chartType" v-model="newChart.chartType">
@@ -34,30 +23,26 @@
                 </select>
             </div>
             <button type="submit" class="btn btn-light mx-5">New Chart</button>
-        </form> -->
-  </nav>
+        </form>
 </template>
 
 <script>
-// export default {
-//     emits: ['submitForm'],
-//     data() {
-//         return {
-//             newChart: {
-//                 color: 'blue',
-//                 chartType: 'Line',
-//                 datasetName: 'data2'
-//             },
-
-//         }
-//     },
-//     methods: {
-//         submitForm() {
-//             this.$emit('submitForm', this.newChart);
-//         }
-//     }
-// }
+export default {
+    emits: ['submitForm'],
+    data() {
+        return {
+            newChart: {
+                color: 'blue',
+                chartType: 'Line',
+                datasetName: 'data2'
+            },
+        
+        }
+    },
+    methods: {
+        submitForm() {
+            this.$emit('submitForm', this.newChart);
+        },
+    }
+}
 </script>
-
-<style scoped>
-</style>

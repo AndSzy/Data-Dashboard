@@ -1,7 +1,12 @@
 <template>
   <div id="app">
-    <the-header @submitForm="newComponent"></the-header>
-    <the-sidebar></the-sidebar>
+    <the-header @submitForm="newComponent">
+      <!-- Dont know how to make toggle dynamiclly -->
+        <a class="btn btn-primary" v-b-toggle="'LeftSidebar'"  > 
+          <font-awesome-icon icon="bars" /> 
+        </a>
+    </the-header>
+    <the-sidebar @submitForm="newComponent" :sidebarId="sidebarId"></the-sidebar>
     <div class="container-fluid">
     
         <draggable v-model="charts" class="row"  >
@@ -51,6 +56,7 @@ export default {
       dataset1,
       dataset2,
       charts: [],
+      sidebarId: 'LeftSidebar'
     };
   },
   mounted() {
