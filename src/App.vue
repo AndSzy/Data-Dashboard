@@ -2,18 +2,18 @@
   <div id="app">
     <the-header>
       <!-- Dont know how to make toggle dynamiclly -->
-        <a class="btn btn-primary" v-b-toggle="'LeftSidebar'"  > 
-          <font-awesome-icon icon="bars" /> 
-        </a>
+      <a class="btn btn-primary" v-b-toggle="'LeftSidebar'">
+        <font-awesome-icon icon="bars" />
+      </a>
     </the-header>
-    <the-sidebar @submitForm="newComponent" :sidebarId="sidebarId"></the-sidebar>
+    <the-sidebar
+      @submitForm="newComponent"
+      :sidebarId="sidebarId"
+    ></the-sidebar>
     <div class="container-fluid">
-    
-        <draggable v-model="charts" class="row"  >
-          <my-component
-          
+      <draggable v-model="charts" class="row">
+        <my-component
           mydraggable
-          
           class="col-12 col-sm-6 col-lg-4"
           v-for="chart in charts"
           :key="chart.id"
@@ -21,8 +21,7 @@
           :openModalAction="openComponentModal"
           :closeComponentAction="closeMyComponent"
         ></my-component>
-        </draggable>
-        
+      </draggable>
     </div>
     <router-view
       :closeModalAction="closeComponentModal"
@@ -34,15 +33,16 @@
 <script>
 import TheHeader from "./components/TheHeader.vue";
 import MyComponent from "./components/MyComponent.vue";
-import TheSidebar from './components/TheSidebar.vue';
+import TheSidebar from "./components/TheSidebar.vue";
 
 import { dataset1, dataset2 } from "./components/FakeData.js";
 
-import draggable from 'vuedraggable';
+import draggable from "vuedraggable";
 
 // handle the registration
 
-import { logSmth } from './components/DragControler.js';
+import { logSmth } from "./components/DragControler.js";
+import { v4 as uuidv4 } from 'uuid';
 
 export default {
   name: "App",
@@ -50,17 +50,22 @@ export default {
     TheHeader,
     MyComponent,
     TheSidebar,
-    draggable
+    draggable,
   },
   data() {
     return {
       dataset1,
       dataset2,
       charts: [],
-      sidebarId: 'LeftSidebar'
+      sidebarId: "LeftSidebar",
     };
   },
   mounted() {
+    this.newComponent({color: "red", chartType: "Line", datasetName: "data2"});
+    this.newComponent({color: "green", chartType: "Bar", datasetName: "data2"});
+    this.newComponent({color: "blue", chartType: "Bar", datasetName: "data1"});
+    this.newComponent({color: "green", chartType: "Line", datasetName: "data1"});
+
     // console.log("mounted");
   },
   beforeUpdate() {
@@ -86,7 +91,7 @@ export default {
     },
     newComponent(newChart) {
       let newChartObject = {};
-      newChartObject.id = new Date().toISOString();
+      newChartObject.id = uuidv4();
       newChartObject.color = newChart.color;
       newChartObject.chartType = newChart.chartType;
       newChartObject.datasetName = newChart.datasetName;
@@ -115,16 +120,15 @@ export default {
       this.charts.forEach((chart) => {
         if (chart.id === closingChart.id) {
           const index = this.charts.indexOf(chart);
-          this.charts.splice(index,1);
+          this.charts.splice(index, 1);
         }
-      })
+      });
     },
   },
 };
 </script>
 
 <style>
-
 .draggable {
   cursor: move;
 }

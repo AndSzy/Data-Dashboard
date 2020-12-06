@@ -4,7 +4,7 @@ function logSmth() {
         if(!element.classList.contains('click-handler')) {
             element.classList.add('click-handler');
             element.addEventListener('click', (e)=> {
-                console.log("clicked********" + e.currentTarget.id);
+                console.log("clicked********" + e.currentTarget);
             })
         }
     })
